@@ -1,0 +1,7 @@
+"radbox13"
+{
+	"base"		"base"
+	"title"		"Zone RP"
+	"maps"		"^gm_|^rp_"
+	"menusystem"	"1"
+}
