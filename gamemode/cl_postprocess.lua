@@ -277,7 +277,7 @@ function GM:CalcView( ply, origin, angle, fov )
 	
 		local rag = ply:GetRagdollEntity()
 		
-		if ValidEntity( rag ) then
+		if IsValid( rag ) then
 			
 			local eyes = rag:LookupAttachment( "eyes" )
 			local tbl = rag:GetAttachment( eyes )

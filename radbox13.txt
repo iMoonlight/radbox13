@@ -1,7 +1,7 @@
 "radbox13"
 {
 	"base"		"base"
-	"title"		"Zone RP"
-	"maps"		"^gm_|^rp_"
+	"title"		"Radioactive Sandbox 13"
+	"maps"		"^gm_|^rp_|^srp_"
 	"menusystem"	"1"
 }

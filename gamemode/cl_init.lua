@@ -62,7 +62,7 @@ function GM:Initialize( )
 	surface.CreateFont ( "Graffiare", 28, 200, true, true, "AmmoFont" )
 	surface.CreateFont ( "Verdana", 12, 300, true, true, "AmmoFontSmall" )
 	surface.CreateFont ( "Verdana", 12, 200, true, true, "TargetIDFont" )
-	
+
 	matRadar = Material( "radbox/radar" )
 	matArm = Material( "radbox/radar_arm" )
 	matArrow = Material( "radbox/radar_arrow" )
@@ -105,7 +105,7 @@ end
 
 function GM:ShouldDrawLocalPlayer( ply )
 
-	if ply:GetVehicle():IsValidVehicle() and gmod_vehicle_viewmode:GetInt() == 1 then
+	if IsValid( ply:GetVehicle() ) and gmod_vehicle_viewmode:GetInt() == 1 then
 	
 		return true
 	
@@ -139,7 +139,7 @@ function GM:PlayerBindPress( ply, bind, pressed )
 
 	if not pressed then return end
 	
-	if bind == "+duck" and ValidEntity( ply:GetVehicle() ) then
+	if bind == "+duck" and IsValid( ply:GetVehicle() ) then
 	
 		local val = gmod_vehicle_viewmode:GetInt()
 		
@@ -253,7 +253,7 @@ function GM:Think()
 	
 	end
 
-	if ValidEntity( LocalPlayer() ) and LocalPlayer():Alive() and not StartMenuShown then
+	if IsValid( LocalPlayer() ) and LocalPlayer():Alive() and not StartMenuShown then
 	
 		StartMenuShown = true
 		GAMEMODE:ShowHelp()
@@ -412,7 +412,7 @@ end
 
 function DrawAmmo( x, y, w, h, text, label )
 
-	if not ValidEntity( LocalPlayer():GetActiveWeapon() ) then return end
+	if not IsValid( LocalPlayer():GetActiveWeapon() ) then return end
 
 	draw.RoundedBox( 4, x, y, w, h, Color( 0, 0, 0, 200 ) )
 	
@@ -505,7 +505,7 @@ function GM:HUDPaint()
 	
 	end
 	
-	if ValidEntity( LocalPlayer():GetActiveWeapon() ) and ( LocalPlayer():GetActiveWeapon().AmmoType or "SMG" ) != "Knife" then
+	if IsValid( LocalPlayer():GetActiveWeapon() ) and ( LocalPlayer():GetActiveWeapon().AmmoType or "SMG" ) != "Knife" then
 	
 		local total = LocalPlayer():GetNWInt( "Ammo" .. ( LocalPlayer():GetActiveWeapon().AmmoType or "SMG" ), 0 )
 		local ammo = math.Clamp( LocalPlayer():GetActiveWeapon():Clip1(), 0, total )
@@ -577,7 +577,7 @@ function GM:HUDPaint()
 		
 	for k,v in pairs( RadarEntTable ) do
 	
-		if not ValidEntity( v ) then break end
+		if not IsValid( v ) then break end
 		
 		local dirp = ( LocalPlayer():GetPos() - v:GetPos() ):Normalize()
 		local aimvec = LocalPlayer():GetAimVector()
@@ -616,7 +616,7 @@ function GM:HUDPaint()
 				
 				color = Color( 255, 255, 80 )
 				
-				if ValidEntity( v:GetRagdollEntity() ) then
+				if IsValid( v:GetRagdollEntity() ) then
 					
 					pos = v:GetRagdollEntity():GetPos()
 		
@@ -647,7 +647,7 @@ function GM:HUDPaint()
 		local diff = v.Pos - LocalPlayer():GetPos()
 		local alpha = 100 
 		
-		if ValidEntity( v.Ent ) and ( v.Ent:IsPlayer() or v.Ent:IsNPC() ) then
+		if IsValid( v.Ent ) and ( v.Ent:IsPlayer() or v.Ent:IsNPC() ) then
 		
 			diff = v.Ent:GetPos() - LocalPlayer():GetPos()
 		
@@ -657,7 +657,7 @@ function GM:HUDPaint()
 		
 			alpha = 100 * ( math.Clamp( v.DieTime - CurTime(), 0, BlipTime ) / BlipTime )
 		
-		elseif not ValidEntity( v.Ent ) then
+		elseif not IsValid( v.Ent ) then
 			
 			PosTable[k].DieTime = CurTime() + 1.5
 			
@@ -701,11 +701,11 @@ function GM:HUDPaint()
 	
 	local ent = LocalPlayer():GetDTEntity( 0 )
 	
-	if ValidEntity( ent ) or StaticPos != Vector(0,0,0) then
+	if IsValid( ent ) or StaticPos != Vector(0,0,0) then
 	
 		local ang = Angle(0,0,0)
 	
-		if ValidEntity( ent ) then
+		if IsValid( ent ) then
 		
 			ang = ( ent:GetPos() - LocalPlayer():GetShootPos()):Angle() - LocalPlayer():GetForward():Angle()
 			

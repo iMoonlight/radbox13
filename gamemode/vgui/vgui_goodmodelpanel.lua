@@ -150,7 +150,7 @@ function PANEL:Paint()
 		end
 	end
 	
-	if ValidEntity( self.Entity ) then
+	if IsValid( self.Entity ) then
 	
 		self.Entity:DrawModel()
 		
